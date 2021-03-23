@@ -1,0 +1,31 @@
+- hosts: tes
+  remote_user: ridho
+  sudo: yes
+  tasks:
+  - name: Add the user pahmil
+    user:
+      name: pahmil
+      shell: /bin/bash
+      groups: sudo
+      append: yes
+  - name: Create a directory if it does not exist
+    file:
+      path: /home/pahmil/.ssh
+      state: directory
+      mode: '0700'
+  - name: Touch a file, using symbolic modes to set the permissions (equivalent to 0644)
+    file:
+      path: /home/pahmil/.ssh/authorized_keys
+      state: touch
+      mode: '0644'
+  - name: Change file ownership, group and permissions
+    file:
+      path: /home/pahmil/.ssh
+      owner: pahmil
+      group: pahmil
+
+  - name: Set authorized key taken from file
+    authorized_key:
+      user: pahmil
+      state: present
+      key: "{{ lookup('file', 'pahmil.pub') }}"

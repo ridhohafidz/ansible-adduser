@@ -1,0 +1,13 @@
+- hosts: all
+
+  sudo: yes
+  user: ridho
+
+  tasks:
+  - name: Delete the existing user "{{some_Deleteuser}}"
+     user:
+       name: "{{some_Deleteuser}}"
+       comment: "{{ some_Deleteuser }}"
+       state: absent
+       remove: yes
+shell: /bin/bash

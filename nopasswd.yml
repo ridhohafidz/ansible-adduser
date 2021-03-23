@@ -1,0 +1,10 @@
+- hosts: nopasswd
+  remote_user: ridho
+  sudo: yes
+  tasks:
+  - name: Comment Line configuration
+    replace:
+       path: /etc/sudoers
+       regexp: '%sudo   ALL=(ALL:ALL) ALL'
+       replace: "%sudo   ALL=NOPASSWD: ALL"
+       backup: yes
